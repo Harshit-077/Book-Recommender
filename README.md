@@ -1,64 +1,70 @@
-# 📚 Book Recommender System
+# 📚 Book Recommender
 
-Welcome to the **Book Recommender System** — a semantic search engine for books that helps users discover titles based on the meaning of their queries rather than exact keyword matches. This project leverages **LangChain**, **FAISS**, and **Hugging Face Transformers** to provide intelligent recommendations and content classification.
+A semantic-powered, emotion-filtered book recommendation app built with Python, LangChain, and Gradio.
 
----
+## 🔍 Features
 
-## 🚀 Features
+- **Semantic Search**: Understands natural-language queries (e.g., "A story about forgiveness") using Hugging Face embeddings.
+- **Emotion-Aware Ranking**: Sort recommendations by tone — Happy, Surprising, Angry, Suspenseful, or Sad.
+- **Category Filtering**: Filter results by genre/category with an "All" fallback.
+- **Clean UI**: 8-column, 2-row image gallery powered by Gradio.
+- **Compact Previews**: Book cover, title, author(s), and a short description snippet.
 
-- 🔎 Content-Based Recommendation  
-  Recommends books using semantic similarity between the user's query and book descriptions.
+## 🧰 Tech Stack
 
-- ⚡ Efficient Vector Search with FAISS  
-  Fast nearest-neighbor search over dense embeddings for real-time responses.
+- [LangChain](https://www.langchain.com/) for document embedding & semantic retrieval
+- [Hugging Face](https://huggingface.co/) embeddings
+- [ChromaDB](https://www.trychroma.com/) as a local vector store
+- Pandas & NumPy for data processing
+- Gradio for building an interactive web UI
+- `python-dotenv` for environment config
 
-- 🧠 Language Model-Powered Embeddings  
-  Uses modern language models to capture the *meaning* behind text.
+## 🚀 Quick Start
 
-- 🧾 LinkedIn Highlight Classifier (Bonus Feature)  
-  Classifies user text (e.g., achievements, experiences) into suitable LinkedIn categories using **zero-shot classification** with Hugging Face’s `facebook/bart-large-mnli`.
+```bash
+git clone https://github.com/Harshit-077/Book-Recommender.git
+cd Book-Recommender
 
----
+# Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate   # macOS/Linux
+# On Windows: .venv\Scripts\activate
 
-## 🛠️ Tech Stack
+# Install dependencies
+pip install -r requirements.txt
 
-| Component        | Tech Used                             |
-|------------------|----------------------------------------|
-| Programming Lang | Python                                 |
-| Vector Store     | FAISS (Facebook AI Similarity Search)  |
-| NLP              | LangChain, Hugging Face Transformers   |
-| Dataset Handling | pandas                                 |
+# Make sure the following files are present in the data/ directory:
+# - books_with_emotions.csv
+# - tagged description.txt
+# - cover-not-found.jpg
 
----
+# Run the website
+python gradio-dashboard.py
 
-## 📂 Dataset
+```
 
-This project uses the **7K Books Dataset** from Kaggle:
+## ⚙️ Key Logic
 
-- 📦 Source: [Kaggle Notebook by @aiswaryarana](https://www.kaggle.com/code/aiswaryarana/7k-books)
-- ✅ Features: `isbn13`, `title`, `authors`, `description`, `categories`, `average_rating`, etc.
-- 🧠 Used for: Creating semantic embeddings from book descriptions and metadata to drive recommendations.
+retrieve_semantic_recommendations():
+Retrieves top matching descriptions using LangChain + Chroma
+Filters by category
+Sorts by emotional tone using scores
+recommend_books():
+Formats results into (image, caption) tuples for Gradio gallery
+Gradio UI:
+Accepts natural language input
+Dropdowns for category and emotional tone
+Displays recommendations in a grid layout
 
-You can download and explore the dataset [here](https://www.kaggle.com/code/aiswaryarana/7k-books).
+## 💡 Future Ideas
 
-The `books.csv` file in this repository is derived from this dataset. The `description` column is especially important, as it is used to generate text embeddings that power the recommendation engine via FAISS.
+Add download/export for recommendations
+Add loading animation during search
+Integrate external book metadata (e.g., Goodreads API)
+Host using Docker or Hugging Face Spaces
 
----
+## 👨‍💻 Author
 
-## 🧠 How It Works
+Harshit Sharma
+GitHub: Harshit-077
 
-1. **Book embeddings** are created from book descriptions using a language model (via LangChain).
-2. **FAISS** indexes these embeddings for fast retrieval.
-3. When a user inputs a query (e.g., "books about AI ethics"), the system:
-   - Embeds the query
-   - Searches for the top `k` most similar book embeddings
-   - Returns the matching book entries
-
----
-
-## 📌 Future Work
-
- 1. Add collaborative filtering for user-based recommendations
- 2. Build a web interface using Streamlit
- 3. Enable hybrid search (metadata + semantic)
- 4. Deploy as an API
