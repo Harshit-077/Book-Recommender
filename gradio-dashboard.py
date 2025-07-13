@@ -33,7 +33,7 @@ def retrieve_semantic_recommendations(
         final_top_k: int = 16,
 ) -> pd.DataFrame:
     recs = db_books.similarity_search_with_score(query, k = initial_top_k)
-    books_list = [int(rec.page_content.strip('"').split()[0])for rec in recs]
+    books_list = [int(doc.page_content.strip('"').split()[0]) for doc, _ in recs]
     books_recs = books[books['isbn13'].isin(books_list)].head(final_top_k)
 
     if category != "All":
@@ -94,10 +94,10 @@ with gr.Blocks(theme=gr.themes.Glass()) as dashboard:
 
         submit_button = gr.Button("Find recommendations")
 
-        gr.Markdown("## Recommendations")
-        output = gr.Gallery(label="Recommended books", columns=8, rows=2)
+    gr.Markdown("## Recommendations")
+    output = gr.Gallery(label="Recommended books", columns=8, rows=2, height = "auto")
 
-        submit_button.click(fn = recommend_books, inputs=[user_query, category_dropdown, tone_dropdown], outputs = output)
+    submit_button.click(fn = recommend_books, inputs=[user_query, category_dropdown, tone_dropdown], outputs = output)
 
 if __name__ == "__main__":
     dashboard.launch()
