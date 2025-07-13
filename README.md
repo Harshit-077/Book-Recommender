@@ -45,26 +45,26 @@ python gradio-dashboard.py
 
 ## ⚙️ Key Logic
 
-retrieve_semantic_recommendations():
-Retrieves top matching descriptions using LangChain + Chroma
-Filters by category
-Sorts by emotional tone using scores
-recommend_books():
-Formats results into (image, caption) tuples for Gradio gallery
-Gradio UI:
-Accepts natural language input
-Dropdowns for category and emotional tone
-Displays recommendations in a grid layout
+##### retrieve_semantic_recommendations():<br>
+Retrieves top matching descriptions using LangChain + Chroma<br>
+Filters by category<br>
+Sorts by emotional tone using scores<br>
+##### recommend_books():<br>
+Formats results into (image, caption) tuples for Gradio gallery<br>
+##### Gradio UI:<br>
+Accepts natural language input<br>
+Dropdowns for category and emotional tone<br>
+Displays recommendations in a grid layout<br>
 
 ## 💡 Future Ideas
 
-Add download/export for recommendations
-Add loading animation during search
-Integrate external book metadata (e.g., Goodreads API)
-Host using Docker or Hugging Face Spaces
+Add download/export for recommendations<br>
+Add loading animation during search<br>
+Integrate external book metadata (e.g., Goodreads API)<br>
+Host using Docker or Hugging Face Spaces<br>
 
 ## 👨‍💻 Author
 
-Harshit Sharma
+Harshit Sharma<br>
 GitHub: Harshit-077
 
